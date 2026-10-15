@@ -1,5 +1,5 @@
 const CACHE_PREFIX='sotrack-shell-'+encodeURIComponent(new URL(self.registration.scope).pathname)+'-';
-const CACHE=CACHE_PREFIX+'v2.1.8';
+const CACHE=CACHE_PREFIX+'v2.1.9';
 const FILES=['./pwa.js','./icon-192.png','./icon-512.png','./small-screen-core.js','./replay-video.js','./activity-export.js','./style.css','./theme.css','./focus.css','./ride-ui.css','./app.js','./core.js','./map-style.js','./map-style-core.js','./vendor/maplibre-gl.js','./vendor/maplibre-gl.css','./replay.js','./replay-core.js','./replay.css','./map-freshness.js','./camera-core.js','./focus.js','./focus-core.js','./navigation-core.js','./explore.js','./explore-core.js','./pro.js','./pro-core.js','./map-download.js','./icon.svg','./manifest.webmanifest'];
 const SHELL=new URL('./__sotrack_offline_shell',self.registration.scope).href;
 const ROOT=new URL('./',self.registration.scope).href;

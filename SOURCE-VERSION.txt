@@ -1,2 +1,2 @@
-Sotrack v2.1.8
+Sotrack v2.1.9
 Based on GitHub main 475b1377c6e8570fbcd34683c2fca11618c61619 with offline/install fixes.

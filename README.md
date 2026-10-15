@@ -1,4 +1,4 @@
-# Sotrack v2.1.8 — GitHub Pages
+# Sotrack v2.1.9 — GitHub Pages
 
 Paket siap upload, tanpa npm atau proses build.
 
@@ -31,5 +31,9 @@ Peta online, pencarian, rute dan cuaca bergantung pada penyedia eksternal dan ko
 File index.html harus diakses melalui HTTPS GitHub Pages, bukan dibuka lewat file://.
 
 
-## Perbaikan instal dan offline v2.1.8
+## Perbaikan instal dan offline v2.1.9
 Upload seluruh isi ZIP ke root repo termasuk pwa.js, ikon PNG, manifest.webmanifest dan sw.js. Buka saat online. Bar atas menunjukkan proses penyiapan offline dan tombol Pasang app. Tunggu “Siap offline · app tersimpan di HP” sebelum menguji tanpa data. Jika gagal, gunakan Coba lagi dan kirim teks status yang tampil. Pasang app memakai prompt browser bila tersedia, atau petunjuk menu Chrome. Ikon PNG 192/512 ditambahkan untuk kompatibilitas instal. App tidak menganggap offline siap sampai cache file inti telah diverifikasi. Persiapan offline berjalan tanpa menunggu modul gowes. File renderer Modern yang gagal dimuat tidak lagi menggagalkan instal cache inti. Pengujian baru: 11 tes service worker lolos; instal dan offline pada J2 Prime/Infinix belum diuji langsung. Perubahan ini belum diterapkan otomatis ke repo karena izin koneksi GitHub menolak penulisan.
+
+
+## Status offline yang ringkas
+Setelah file inti terverifikasi, status sukses di bar atas hilang otomatis setelah 3 detik. Status tetap tersedia di footer paling bawah. Pesan proses, belum siap, dan gagal tetap muncul agar bisa dicoba ulang.
