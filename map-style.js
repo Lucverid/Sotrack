@@ -1,3 +1,4 @@
+import {preferLightMap} from './small-screen-core.js';
 import {vectorStyles,vectorCamera} from './map-style-core.js';
 const api=window.sotrack,$=s=>document.querySelector(s);
 const host=document.createElement('div');host.id='vectorMap';host.hidden=true;$('#map').prepend(host);
@@ -22,7 +23,7 @@ async function change(value){choice=vectorStyles[value]?value:'osm';$('#mapStyle
   }catch{fallback('Perangkat belum dapat membuka peta modern. OSM klasik tetap tersedia.');}finally{loading=false;if(own!==generation)change(choice);}
 }
 $('#mapStyleChoice').onchange=async()=>{const selected=$('#mapStyleChoice').value;await change(selected);try{await api.updateSettings({mapStyle:selected});}catch{api.toast('Pilihan gaya belum tersimpan.');}};
-window.addEventListener('sotrack:camera',e=>sync(e.detail));window.addEventListener('sotrack:ready',()=>change(api.settings.mapStyle||'liberty'));
+window.addEventListener('sotrack:camera',e=>sync(e.detail));window.addEventListener('sotrack:ready',()=>change(api.settings.mapStyle||(preferLightMap(innerWidth,innerHeight,navigator.deviceMemory,navigator.hardwareConcurrency)?'osm':'liberty')));
 window.addEventListener('offline',()=>fallback('Offline: memakai area jalan yang sudah disimpan.'));window.addEventListener('online',()=>change(choice));
 api.vectorAttribution='OpenFreeMap © OpenMapTiles · © OpenStreetMap contributors';
 

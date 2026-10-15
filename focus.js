@@ -1,5 +1,6 @@
 import {buildNavigation,nextManeuver,estimateArrival,navigationDistance} from './navigation-core.js';
 import {routeProgress} from './focus-core.js';
+const smallScreen=()=>matchMedia('(max-width:400px), (max-height:600px)').matches;
 const api=window.sotrack,$=s=>document.querySelector(s);
 const map=$('#map');
 // Give the ride map its own viewport layer, outside dashboard card clipping.
@@ -15,12 +16,13 @@ const povMenu=layer.querySelector('.focus-pov-menu');layer.querySelector('.focus
 const enter=document.createElement('button');enter.id='enterFocus';enter.className='outline gpsonly';enter.textContent='⛶ Peta penuh';$('#start').before(enter);
 let focused=false,hadRide=false,navigationRoute=null,navigation={cues:[],total:0};
 function marker(point){const old=api.navigationTarget;api.navigationTarget=point;if(old?.index!==point?.index||old?.route!==point?.route)api.drawMap();}
-function mapPadding(){if(window.matchMedia('(orientation:landscape) and (max-height:600px)').matches)return {top:20,bottom:20,left:20,right:80};const top=layer.querySelector('.focus-top')?.offsetHeight||150,bottom=layer.querySelector('.focus-bottom')?.offsetHeight||220;return {top:top+25,bottom:bottom+25,left:20,right:80};}
+function mapPadding(){if(window.matchMedia('(orientation:landscape) and (max-height:600px)').matches)return {top:12,bottom:20,left:Math.max(220,innerWidth*.34)+16,right:60};const top=layer.querySelector('.focus-top')?.offsetHeight||150,bottom=layer.querySelector('.focus-bottom')?.offsetHeight||220;return {top:top+25,bottom:bottom+25,left:12,right:56};}
 
 function overview(){api.mapPadding=mapPadding();api.fitPoints(api.activeRoute?.points,api.mapPadding);}
 function setFocus(on){
   if(on===focused){hadRide=!!api.ride;render();return;}
   focused=on;hadRide=!!api.ride;
+  if(on&&smallScreen()){layer.classList.remove('cyclo');layer.classList.add('compact');$('#focusDockToggle').setAttribute('aria-expanded','false');}
   if(on){
     previousInert=backgrounds.map(node=>node.inert);
     stage.append(map);stage.hidden=false;
@@ -29,7 +31,7 @@ function setFocus(on){
     api.stopPick();$('#drawExit').click();api.stopDrag();if(api.ride){api.mapPitch=0;api.setMapOrientation('heading');api.followPosition();api.zoom=Math.max(api.zoom,16);}else if(api.activeRoute)requestAnimationFrame(overview);else api.followPosition();
     $('#focusExit').focus({preventScroll:true});
   }else{
-    marker(null);api.mapPitch=0;api.setMapOrientation('north');api.mapPadding=undefined;home.after(map);stage.hidden=true;layer.hidden=true;
+    if(document.fullscreenElement===stage)document.exitFullscreen().catch(()=>{});marker(null);api.mapPitch=0;api.setMapOrientation('north');api.mapPadding=undefined;home.after(map);stage.hidden=true;layer.hidden=true;
     document.body.classList.remove('ride-focus');
     backgrounds.forEach((node,i)=>node.inert=previousInert[i]);
     enter.focus({preventScroll:true});
@@ -47,9 +49,9 @@ $('#focusOrigin').onclick=()=>{setFocus(false);api.tab('ride');$('#onlinePickSta
 $('#focusDestination').onclick=()=>{setFocus(false);api.tab('ride');$('#destinationSearch').click();};
 $('#focusShareRoute').onclick=()=>api.shareActiveRoute?.();
 $('#focusLayout').onclick=()=>{const next=!layer.classList.contains('cyclo');layer.classList.toggle('cyclo',next);$('#focusLayout').textContent=next?'⛶':'▦';api.updateSettings({cycloLayout:next?'computer':'map'}).catch(()=>api.toast('Pilihan tampilan belum tersimpan.'));render();api.drawMap();};
-window.addEventListener('sotrack:ready',()=>{layer.classList.toggle('cyclo',api.settings.cycloLayout!=='map');});
+window.addEventListener('sotrack:ready',()=>{layer.classList.toggle('cyclo',!smallScreen()&&api.settings.cycloLayout!=='map');});
 $('#focusPause').onclick=()=>$(api.recording?'#pause':'#start').click();
-$('#focusDockToggle').onclick=()=>{const compact=layer.classList.contains('compact');layer.classList.toggle('compact',!compact);$('#focusDockToggle').setAttribute('aria-expanded',String(compact));$('#focusDockToggle').setAttribute('aria-label',compact?'Ringkas data dan kontrol':'Tampilkan data dan kontrol aktivitas');};
+$('#focusDockToggle').onclick=()=>{const compact=layer.classList.contains('compact');layer.classList.toggle('compact',!compact);$('#focusDockToggle').setAttribute('aria-expanded',String(compact));render();api.drawMap();$('#focusDockToggle').setAttribute('aria-label',compact?'Ringkas data dan kontrol':'Tampilkan data dan kontrol aktivitas');};
 $('#focusQuickPause').onclick=()=>$('#focusPause').click();
 $('#focusBuildRoute').onclick=()=>{setFocus(false);api.tab('ride');$('#onlineRoute').click();};
 $('#focusChooseRoute').onclick=()=>{setFocus(false);api.tab('ride');$('#destinationSearch').click();};
@@ -98,3 +100,8 @@ function render(){
   marker(cue?{...cue,route:route.id}:null);
 }
 setInterval(render,1000);
+
+function resizeViewport(){stage.style.setProperty('--ride-viewport-height',innerHeight+'px');if(focused){render();api.drawMap();}}
+window.addEventListener('resize',resizeViewport);resizeViewport();
+const fullscreen=document.createElement('button');fullscreen.id='rideFullscreen';fullscreen.textContent='⛶';fullscreen.title='Layar penuh perangkat';fullscreen.setAttribute('aria-label',fullscreen.title);fullscreen.hidden=!stage.requestFullscreen;fullscreen.onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await stage.requestFullscreen();}catch{api.toast('Browser belum mengizinkan layar penuh. Peta penuh tetap aktif.');}};$('.mapcontrols').append(fullscreen);
+document.addEventListener('fullscreenchange',resizeViewport);

@@ -127,3 +127,46 @@ html[data-theme=day] #rideMapStage .cyclo:not(.preview) .focus-speed b{color:#16
  #rideMapStage #map .mapbottom{bottom:4px;left:8px;right:auto;max-width:48%}
 }
 @media(min-width:900px) and (min-height:601px){#rideMapStage #map .mapcontrols{left:16px;right:auto;top:50%}#rideMapStage #map .mapbottom{bottom:4px;left:8px;right:auto;max-width:calc(100% - 660px)}}
+
+.activity-downloads{padding:16px;border:1px solid var(--border);border-radius:14px;margin:20px 0;background:var(--paper)}.activity-downloads h4{margin:0;font-size:14px}.activity-downloads .buttonrow{gap:8px;margin:12px 0}.activity-downloads button{min-height:44px;flex:1;min-width:130px;font-size:12px}.activity-downloads p{margin:0;font-size:11px;color:var(--muted);line-height:1.7}@media(max-width:400px){.activity-downloads .buttonrow{display:grid;grid-template-columns:1fr}.activity-downloads button{width:100%;font-size:12px}}
+/* Keep a readable map between the navigation card and compact ride dock. */
+#rideMapStage{height:100vh;height:var(--ride-viewport-height,100vh)}
+#rideMapStage .focus-ui{padding:8px 10px;padding:max(8px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
+#rideMapStage .focus-bottom{max-height:42vh;max-height:42dvh}
+@media(max-width:400px),(max-height:600px){
+ #rideMapStage .focus-ui{gap:6px}
+ #rideMapStage .focus-heading{grid-template-columns:40px minmax(65px,1fr) auto 40px;gap:4px;margin-bottom:5px}
+ #rideMapStage .focus-status-group{padding:4px;min-height:40px}
+ #rideMapStage #focusExit,#rideMapStage #focusLayout{width:40px;height:40px;min-height:40px}
+ #rideMapStage .focus-pov-menu summary{min-height:40px;padding:0 7px}
+ #rideMapStage .focus-guidance{padding:6px 8px;gap:7px;border-radius:12px}
+ #rideMapStage .focus-guidance p{font-size:15px;line-height:1.25;margin:2px 0;overflow-wrap:break-word}
+ #rideMapStage #focusSignal{display:none}
+ #rideMapStage .gps-warning #focusSignal{display:block;font-size:9px}
+ #rideMapStage .focus-guidance b{font-size:9px}
+ #rideMapStage .focus-route-icon{font-size:28px;min-width:28px}
+ #rideMapStage .focus-bottom{padding:8px!important;border-radius:14px}
+ #rideMapStage .focus-destination-remaining{padding-bottom:4px;margin-bottom:5px}
+ #rideMapStage .focus-destination-remaining b{font-size:17px}
+ #rideMapStage .focus-quick{gap:5px}
+ #rideMapStage .focus-quick button{padding:6px 9px;min-height:42px}
+ #rideMapStage .focus-quick b{font-size:28px}
+ #rideMapStage .focus-pov-menu .focus-pov{min-width:0;width:250px;max-width:calc(100vw - 20px)}
+ #rideMapStage #map .mapcontrols{grid-template-columns:36px;grid-auto-rows:36px;right:7px;gap:3px}
+ #rideMapStage #map .mapcontrols button{width:36px;height:36px;min-height:36px;font-size:18px}
+ .tab,main,.mapcard,.computer,.card{min-width:0;max-width:100%}
+ main{padding-left:12px;padding-right:12px}
+ .buttonrow{flex-wrap:wrap}input,select,textarea{max-width:100%;min-width:0}
+ .pageheading{flex-wrap:wrap;gap:10px}h1{font-size:26px}
+ #mapSettingsMenu{padding:16px;max-height:85vh}
+}
+@media(orientation:landscape) and (max-height:600px){
+ #rideMapStage .focus-ui{display:grid;grid-template-columns:minmax(220px,34%) 1fr;grid-template-rows:auto minmax(0,1fr) auto;max-width:none;margin:0;padding:6px;gap:4px}
+ #rideMapStage .focus-top,#rideMapStage .focus-bottom{position:relative;inset:auto;width:100%;max-height:46vh;overflow:auto;margin:0;grid-column:1}
+ #rideMapStage .focus-top{grid-row:1}
+ #rideMapStage .focus-bottom{grid-row:3}
+ #rideMapStage #map .mapcontrols{left:auto;right:8px;top:50%}
+ #rideMapStage .focus-trip-fields button{min-height:36px;font-size:11px}
+ #rideMapStage #map .mapbottom{left:auto;right:4px;max-width:58%}
+}
+@media(max-width:340px){#rideMapStage #focusWallClock{font-size:11px}#rideMapStage .focus-guidance p{font-size:14px}#rideMapStage .focus-quick small{font-size:8px}}

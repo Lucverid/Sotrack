@@ -1,3 +1,4 @@
+import {mountVideoExport} from './replay-video.js';
 import {buildReplay,replayAt} from './replay-core.js';
 import {fitRouteView} from './focus-core.js';
 import {project} from './core.js';
@@ -19,6 +20,7 @@ function open(ride){
   $('#replayZones').innerHTML=model.zones.map((seconds,i)=>`<div><span>Z${i+1}</span><i style="--zone:${i+1};width:${total?seconds/total*100:0}%"></i><b>${clock(seconds*1000)}</b></div>`).join('')+`<p class="muted">Waktu dengan sampel HR kontinu: ${clock(total*1000)}. HR yang tidak terekam tidak diisi.</p>`;
   $('#replayPlay').onclick=()=>{if(playing){pause();return;}if(time>=model.duration)time=0;playing=true;last=performance.now();$('#replayPlay').textContent='Ⅱ Jeda replay';raf=requestAnimationFrame(tick);};
   $('#replayReset').onclick=()=>{pause();time=0;render();};$('#replaySeek').oninput=()=>{pause();time=Number($('#replaySeek').value);render();};
+  mountVideoExport(panel,model,ride);
   observer=new ResizeObserver(render);observer.observe($('#replayMap'));render();
 }
 function drawMap(frame){
