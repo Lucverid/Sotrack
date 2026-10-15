@@ -1,0 +1,2 @@
+export const vectorStyles={liberty:'https://tiles.openfreemap.org/styles/liberty',bright:'https://tiles.openfreemap.org/styles/bright'};
+export function vectorCamera(camera){return {center:[camera.center.lon,camera.center.lat],zoom:Math.max(0,camera.zoom-1),bearing:camera.bearing,pitch:Math.max(0,Math.min(50,camera.pitch||0)),padding:{top:Math.max(0,Math.round(2*camera.y-camera.height)),bottom:0,left:0,right:0}};}

@@ -1,0 +1,152 @@
+/* Day mode uses a genuinely light instrument panel. */
+html[data-theme=day] .computer{background:#fff;border-color:#b5c8df;box-shadow:0 8px 28px #1536550d}
+html[data-theme=day] .computer .speed strong,html[data-theme=day] .computerstats b,html[data-theme=day] .extras b,html[data-theme=day] .hrstrip b{color:#10243e}
+html[data-theme=day] .computerhead,html[data-theme=day] .speed>span,html[data-theme=day] .computerstats small,html[data-theme=day] .computerstats span,html[data-theme=day] .zonescaption,html[data-theme=day] .extras,html[data-theme=day] .computerhint,html[data-theme=day] .speedsource,html[data-theme=day] .hrstrip small,html[data-theme=day] .hrstrip em{color:#405773}
+html[data-theme=day] .computerstats,html[data-theme=day] .computerstats div+div{border-color:#ccd8e6}
+html[data-theme=day] .computer .outline,html[data-theme=day] .recordactions button{background:#edf4fd;border-color:#b2c8e3;color:#173c69}
+html[data-theme=day] .hrstrip button{color:#0966bc}
+html[data-theme=day] .computer .liveworkout{background:#eaf2fc;color:#143355;border-color:#b2c8e3}
+html[data-theme=day] .computer .liveworkout small,html[data-theme=day] .computer .liveworkout span,html[data-theme=day] .computer .liveworkout b,html[data-theme=day] .computer .liveworkout strong{color:#143355}
+.ridegrid>*{min-width:0}.focus-ui[hidden]{display:none}
+.focus-ui{position:absolute;inset:0;z-index:6;pointer-events:none;color:var(--ink);font-family:system-ui,sans-serif}
+.focus-top,.focus-bottom{position:absolute;left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));max-width:660px;margin:0 auto;pointer-events:auto}
+.focus-top{top:max(12px,env(safe-area-inset-top))}.focus-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.focus-heading button,.focus-heading>span{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--ink);box-shadow:0 3px 12px #0002;font-size:11px;font-weight:750}
+.focus-guidance{display:flex;gap:14px;padding:15px 18px;background:var(--card);border:1px solid var(--border);border-left:4px solid #349eff;border-radius:12px;box-shadow:0 4px 18px #0002}
+.focus-route-icon{font-size:38px;color:#349eff;line-height:1}.focus-guidance>div{min-width:0}.focus-guidance b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.focus-guidance p{margin:5px 0;font-size:16px;font-weight:700;line-height:1.3}.focus-guidance small{font-size:10px;color:var(--muted)}
+.focus-bottom{bottom:calc(33px + env(safe-area-inset-bottom));background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;box-shadow:0 6px 25px #0003}
+.focus-metrics{display:grid;grid-template-columns:1.15fr .9fr 1.3fr .7fr;gap:8px;align-items:center;margin-bottom:12px;text-align:center;font-variant-numeric:tabular-nums}
+.focus-metrics b{display:block;font-size:20px;line-height:1.2;white-space:nowrap}.focus-metrics small{display:block;font-size:10px;color:var(--muted);margin-top:4px}.focus-metrics .focus-speed b{font-size:38px;font-style:italic;letter-spacing:-1px;color:#65b5ff}
+html[data-theme=day] .focus-speed b{color:#0966bc}
+.focus-actions{display:grid;grid-template-columns:1.25fr .8fr 1fr;gap:8px}.focus-actions button{min-height:46px;font-size:13px;padding:10px 8px}.focus-actions button:disabled{opacity:.45}
+body.ride-focus{overflow:hidden;padding:0}body.ride-focus #map{position:fixed;inset:0;width:100%;height:100vh;height:100dvh;z-index:50;border-radius:0}
+body.ride-focus .sidebar,body.ride-focus main>header,body.ride-focus .pageheading,body.ride-focus footer{visibility:hidden}
+body.ride-focus .mapcontrols{top:calc(160px + env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:7}
+body.ride-focus .mapcontrols button{width:44px;height:44px;min-height:44px;font-size:21px;box-shadow:0 3px 10px #0002}
+body.ride-focus .mapbottom{padding-bottom:calc(7px + env(safe-area-inset-bottom));font-size:9px}
+body.ride-focus .mapbottom #locationText{display:none}body.ride-focus .mapbottom{justify-content:flex-end}
+body.ride-focus .mapempty{top:44%;left:18%;right:20%;padding:12px;font-size:11px}
+body.ride-focus #toast{z-index:100;bottom:calc(205px + env(safe-area-inset-bottom))}
+:focus-visible{outline:3px solid #ff8c48;outline-offset:3px}
+@media(max-width:900px){.ridegrid{grid-template-columns:1fr}.rideleft,.rideright{min-width:0}.rideright{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}.rideright>.computer{grid-row:span 3}.rideright>.panel{margin-top:0}}
+@media(max-width:700px){
+ main{padding:0 12px}.pageheading{padding:18px 0}.pageheading h1{font-size:27px}header{gap:8px}.breadcrumb{letter-spacing:0;min-width:0}.breadcrumb span{margin:0 4px}.headerstatus{flex-shrink:0}
+ .ridegrid{gap:14px}.rideleft,.rideright{display:contents}.mapcard{order:0;margin:0}.computer{order:1;margin:0;padding:20px}.minimetrics{order:2;margin:5px 0}.profilepanel{order:3}.targetpanel{order:4}.weatherpanel{order:5}.tip{order:6}
+ #map{height:48vh;min-height:300px;max-height:440px}.explorebar{gap:8px;padding:10px}.explorebar form{min-width:0;flex-basis:100%;gap:6px}.explorebar input{font-size:14px}.explorebar>button{width:100%}
+ .tripfields{gap:8px}.maptrip .tripfields>div{padding:9px 8px}.pointactions{gap:4px}.pointactions .textbtn{font-size:11px;padding:8px 3px;min-height:40px}.triprouteactions select{min-height:44px;font-size:12px}.triprouteactions>.primary,.triprouteactions>.outline{min-height:44px;font-size:11px}.triprouteactions>.textbtn{min-height:40px;font-size:11px}.mapstatus{font-size:11px}
+ input:not([type=checkbox]),select{font-size:16px}.panel{padding:17px}.buttonrow{gap:8px}.buttonrow>*{min-width:0;flex-basis:130px;min-height:44px}.routebar{gap:8px}.routebar>div{min-width:0}.routebar b{overflow-wrap:anywhere}.routebar .textbtn{flex-shrink:0;min-height:44px}.listactions button,.themebuttons button{min-height:44px}
+ .sidebar{height:calc(70px + env(safe-area-inset-bottom));padding:0 4px env(safe-area-inset-bottom)}body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}nav button{min-width:0;padding:6px 2px;font-size:9px}
+ .inputpair,.offlineoptions{grid-template-columns:1fr}.maptop{gap:8px}.badge{white-space:normal;text-align:right;font-size:9px}dialog{padding:20px;max-height:88dvh;overflow:auto}
+ .focus-heading button{min-height:44px}.focus-guidance{padding:12px;gap:10px}.focus-guidance b{font-size:13px}.focus-guidance p{font-size:15px}.focus-metrics b{font-size:17px}.focus-metrics .focus-speed b{font-size:34px}.focus-bottom{padding:12px}.focus-metrics{gap:5px}.focus-actions button{font-size:12px}
+}
+@media(max-height:500px) and (orientation:landscape){.focus-top{right:auto;width:calc(50% - 64px)}.focus-guidance{padding:10px}.focus-bottom{left:auto;right:70px;width:45%;bottom:30px}.focus-metrics .focus-speed b{font-size:28px}.focus-metrics b{font-size:16px}body.ride-focus .mapcontrols{top:12px;right:12px}}
+/* Keep focus sizing after dashboard breakpoints: max-height previously capped it. */
+#rideMapStage[hidden]{display:none}
+#rideMapStage{position:fixed;inset:0;width:100%;height:100vh;height:100dvh;z-index:50;overflow:hidden;background:var(--paper)}
+body.ride-focus{height:100vh;height:100dvh;overflow:hidden;padding:0}
+body.ride-focus main,body.ride-focus .sidebar{display:none}
+body.ride-focus #rideMapStage>#map{position:absolute;inset:0;width:100%;height:100%;min-height:0;max-height:none;min-width:0;max-width:none;border-radius:0}
+body.ride-focus .focus-top,body.ride-focus .focus-bottom{left:max(8px,env(safe-area-inset-left));right:max(8px,env(safe-area-inset-right));max-width:560px}
+body.ride-focus .focus-top{top:max(8px,env(safe-area-inset-top))}
+body.ride-focus .focus-heading{margin-bottom:6px;gap:6px}
+body.ride-focus .focus-heading button{min-height:44px;padding:8px 12px;font-size:11px}
+body.ride-focus .focus-heading>span{padding:8px 10px;font-size:10px;white-space:nowrap}
+body.ride-focus .focus-guidance{padding:9px 11px;gap:9px;border-left-width:3px}
+body.ride-focus .focus-guidance b{font-size:12px}
+body.ride-focus .focus-guidance p{font-size:14px;margin:3px 0}
+body.ride-focus .focus-guidance small{font-size:10px;line-height:1.3;display:block}
+body.ride-focus .focus-route-icon{font-size:26px}
+body.ride-focus .no-route .focus-route-icon,body.ride-focus .no-route:not(.gps-warning) .focus-guidance p{display:none}
+body.ride-focus .no-route:not(.gps-warning) .focus-guidance>div{display:flex;align-items:center;justify-content:space-between;width:100%;gap:10px}
+body.ride-focus .focus-bottom{bottom:calc(24px + env(safe-area-inset-bottom));padding:8px 10px;border-radius:12px}
+body.ride-focus .focus-metrics{gap:6px;margin-bottom:7px;grid-template-columns:1.1fr .8fr 1.35fr .65fr}
+body.ride-focus .no-hr .focus-metrics{grid-template-columns:1fr .8fr 1.25fr}
+body.ride-focus .no-hr .focus-hr{display:none}
+body.ride-focus .focus-metrics b{font-size:17px}
+body.ride-focus .focus-metrics small{font-size:9px;margin-top:2px}
+body.ride-focus .focus-metrics .focus-speed b{font-size:30px}
+body.ride-focus .focus-actions{gap:6px}
+body.ride-focus .focus-actions button{min-height:44px;padding:8px 6px;font-size:12px}
+body.ride-focus .mapcontrols{top:auto;bottom:calc(156px + env(safe-area-inset-bottom));right:max(8px,env(safe-area-inset-right));display:grid;grid-template-columns:44px 44px;gap:5px}
+body.ride-focus .mapbottom{background:transparent;padding:4px 8px calc(4px + env(safe-area-inset-bottom));pointer-events:none}
+body.ride-focus .mapbottom a{pointer-events:auto;background:#fffffff0;color:#183654;border-radius:4px;padding:2px 5px}
+body.ride-focus .mapempty{top:45%;left:12%;right:12%}
+body.ride-focus #toast{bottom:calc(160px + env(safe-area-inset-bottom))}
+@media(max-height:500px) and (orientation:landscape){
+ body.ride-focus .focus-top{right:auto;width:calc(48% - 12px)}
+ body.ride-focus .focus-bottom{left:auto;right:8px;bottom:24px;width:48%;max-width:400px}
+ body.ride-focus .mapcontrols{bottom:auto;top:max(8px,env(safe-area-inset-top));right:max(8px,env(safe-area-inset-right))}
+ body.ride-focus .focus-guidance{padding:8px}
+}
+.focus-quick{display:flex;align-items:center;gap:8px}
+.focus-quick>span{display:flex;align-items:baseline;gap:5px;flex:1;min-width:0}
+.focus-quick b{font-size:29px;line-height:1.15;font-style:italic;font-variant-numeric:tabular-nums;color:#65b5ff}
+html[data-theme=day] .focus-quick b{color:#0966bc}
+.focus-quick small{font-size:10px;color:var(--muted)}
+.focus-quick button{min-height:44px;padding:8px 12px;font-size:12px}
+#focusDockToggle{min-width:44px;font-size:24px;line-height:1}
+.focus-ui.compact .focus-metrics,.focus-ui.compact .focus-actions{display:none}
+.focus-ui:not(.compact) .focus-quick{margin-bottom:10px}
+.focus-ui:not(.compact) .focus-quick>span,.focus-ui:not(.compact) #focusQuickPause{display:none}
+.focus-ui:not(.compact) .focus-quick{justify-content:flex-end}
+body.ride-focus .focus-ui .focus-route-icon{font-size:38px;min-width:38px;align-self:center}
+body.ride-focus #focusTripStats{color:var(--ink);font-size:12px;font-weight:700;margin:4px 0}
+body.ride-focus #focusTripStats[hidden],body.ride-focus #focusChooseRoute[hidden]{display:none}
+body.ride-focus .no-route .focus-guidance>div{display:block!important}
+body.ride-focus #focusChooseRoute{padding:6px 0;min-height:36px;font-size:12px}
+body.ride-focus .focus-bottom:has(.focus-quick){padding:8px 10px}
+body.ride-focus .mapcontrols{bottom:calc(270px + env(safe-area-inset-bottom))}
+body.ride-focus #map:has(.focus-ui.compact) .mapcontrols{bottom:calc(98px + env(safe-area-inset-bottom))}
+@media(max-height:500px) and (orientation:landscape){body.ride-focus .mapcontrols,body.ride-focus #map:has(.focus-ui.compact) .mapcontrols{bottom:auto;top:8px}}
+.focus-trip-fields,.focus-plan-summary{display:none}
+.focus-sheet-handle{width:30px;height:4px;background:var(--border);border-radius:5px;margin:0 auto 9px}
+body.ride-focus .focus-top{left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top))}
+body.ride-focus .focus-heading button,body.ride-focus .focus-heading>span{box-shadow:0 3px 12px #0001;border-radius:22px}
+body.ride-focus .preview .focus-trip-fields{display:block;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:3px 14px;box-shadow:0 4px 16px #0002}
+.focus-trip-fields button{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;color:var(--ink);text-align:left;min-height:46px;font:inherit;font-size:14px;padding:9px 0}
+.focus-trip-fields button+button{border-top:1px solid var(--border)}
+.focus-trip-fields button>span:nth-child(2){flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.trip-origin-dot{color:#349eff}.trip-destination-dot{color:#ff8c48}.trip-edit{color:var(--muted);font-size:12px}
+body.ride-focus .preview .focus-guidance{display:none}
+body.ride-focus .preview .focus-plan-summary{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:0 0 10px}
+.focus-plan-summary b{font-size:19px;display:block}.focus-plan-summary small{display:block;font-size:10px;color:var(--muted);margin-top:4px}.focus-plan-summary>span{font-size:8px;letter-spacing:1px;color:var(--muted)}
+.focus-plan-summary>span[hidden],#focusShareRoute[hidden]{display:none}
+body.ride-focus .focus-bottom{left:max(0px,env(safe-area-inset-left));right:max(0px,env(safe-area-inset-right));bottom:0;max-width:600px;border-radius:23px 23px 0 0;border-bottom:0;box-shadow:0 -4px 20px #0002}
+body.ride-focus .focus-bottom:has(.focus-quick){padding:10px 16px calc(12px + env(safe-area-inset-bottom))}
+.focus-quick button{border-radius:24px}.focus-quick b{font-size:27px}.focus-quick>span{gap:4px}
+body.ride-focus .mapbottom{bottom:calc(78px + env(safe-area-inset-bottom))}
+body.ride-focus #map:has(.preview) .mapbottom{bottom:calc(128px + env(safe-area-inset-bottom))}
+body.ride-focus #map:has(.focus-ui:not(.compact)) .mapbottom{bottom:calc(246px + env(safe-area-inset-bottom))}
+body.ride-focus #map:has(.focus-ui.compact) .mapcontrols{bottom:calc(106px + env(safe-area-inset-bottom));display:flex;gap:7px}
+body.ride-focus #map:has(.preview.compact) .mapcontrols{bottom:calc(158px + env(safe-area-inset-bottom))}
+body.ride-focus .mapcontrols button{border-radius:50%;background:var(--card);color:var(--ink);border-color:var(--border)}
+body.ride-focus #map:has(.focus-ui:not(.compact)) .mapcontrols{bottom:calc(275px + env(safe-area-inset-bottom))}
+@media(min-width:701px){body.ride-focus .focus-bottom{bottom:20px;border:1px solid var(--border);border-radius:23px}body.ride-focus .focus-top{top:20px}}
+@media(max-height:500px) and (orientation:landscape){body.ride-focus .focus-top{right:auto;width:44%}body.ride-focus .focus-bottom{left:auto;right:8px;bottom:8px;width:48%;border-radius:18px}body.ride-focus #map:has(.focus-ui) .mapcontrols{bottom:auto;top:8px;display:grid;grid-template-columns:44px 44px}}
+#mapCompass{display:none}
+body.ride-focus #mapCompass{display:inline-block;font-size:15px;font-weight:800;color:#167ade}
+body.ride-focus .mapcontrols,body.ride-focus #map:has(.focus-ui.compact) .mapcontrols{display:grid;grid-template-columns:44px 44px}
+body.ride-focus #mapCompass{grid-column:2}
+
+body.ride-focus #map:has(.preview) #mapCompass{display:none}
+
+#vectorMap{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}#vectorMap[hidden]{display:none}.map-style-controls{padding:12px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center;flex-wrap:wrap}.map-style-controls label{margin:0!important;display:flex!important;align-items:center;gap:10px}.map-style-controls small{font-size:10px;color:var(--muted)}.map-style-controls select{min-height:44px}.map-clock-badge{position:absolute;left:10px;top:10px;z-index:5;background:var(--card);border:1px solid var(--border);color:var(--ink);border-radius:10px;padding:8px 12px;font-size:19px;font-weight:800;font-variant-numeric:tabular-nums;pointer-events:none}body.ride-focus .map-clock-badge{display:none}body.ride-focus #focusWallClock{font-size:20px;font-weight:800;color:var(--ink);display:block;line-height:1.2}body.ride-focus .focus-status-group{padding:8px 12px}body.ride-focus .focus-status-group>span{font-size:9px}.focus-destination-remaining{display:flex;align-items:baseline;gap:8px;border-bottom:1px solid var(--border);padding:0 0 8px;margin:0 0 8px;flex-wrap:wrap}.focus-destination-remaining small{font-size:9px;color:var(--muted)}.focus-destination-remaining b{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ink)}.focus-destination-remaining>span{font-size:9px;color:var(--muted)}.off-route .focus-guidance{border-left-color:#ff8c48}.off-route #focusGuide{color:#df6c28;font-weight:800}body.ride-focus #map:has(.focus-ui.compact) .mapcontrols{bottom:calc(155px + env(safe-area-inset-bottom))}body.ride-focus #map:has(.preview.compact) .mapcontrols{bottom:calc(200px + env(safe-area-inset-bottom))}body.ride-focus .mapbottom{bottom:calc(125px + env(safe-area-inset-bottom))}body.ride-focus #map:has(.preview) .mapbottom{bottom:calc(170px + env(safe-area-inset-bottom))}
+.focus-zone{display:none}#focusLayout[hidden]{display:none}
+body.ride-focus .cyclo:not(.preview) .focus-quick,body.ride-focus .cyclo:not(.preview) .focus-sheet-handle{display:none}
+body.ride-focus .cyclo:not(.preview) .focus-metrics{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:0 0 12px}
+body.ride-focus .cyclo:not(.preview) .focus-speed{grid-column:1/-1;padding:0 0 6px;border-bottom:1px solid var(--border)}
+body.ride-focus .cyclo:not(.preview) .focus-speed b{font-size:clamp(58px,10vh,86px);font-style:italic;font-weight:800;line-height:1;letter-spacing:-2px}
+body.ride-focus .cyclo:not(.preview) .focus-metrics b{font-variant-numeric:tabular-nums}
+body.ride-focus .cyclo:not(.preview) .focus-hr{display:block!important}
+body.ride-focus .cyclo:not(.preview) .focus-zone{display:block}
+body.ride-focus .cyclo:not(.preview) .focus-metrics small{font-size:9px;line-height:1.3}
+body.ride-focus .cyclo:not(.preview) .focus-actions{display:grid!important;grid-template-columns:1fr .8fr 1fr}
+body.ride-focus .cyclo:not(.preview) .focus-actions button{min-height:48px;font-size:13px}
+body.ride-focus .cyclo:not(.preview) .focus-destination-remaining{gap:6px;margin-bottom:6px;padding-bottom:6px}
+body.ride-focus .cyclo:not(.preview) .focus-destination-remaining b{font-size:22px}
+body.ride-focus #map:has(.cyclo:not(.preview)) .mapcontrols{bottom:calc(315px + env(safe-area-inset-bottom))}
+body.ride-focus #map:has(.cyclo:not(.preview)) .mapbottom{bottom:calc(290px + env(safe-area-inset-bottom))}
+body.ride-focus .focus-heading #focusLayout{padding:8px 10px;font-size:10px;min-height:44px}
+body.ride-focus .cyclo:not(.preview) .focus-bottom{max-height:45dvh;overflow:auto;overscroll-behavior:contain}
+@media(max-height:600px){body.ride-focus .cyclo:not(.preview) .focus-speed b{font-size:52px}body.ride-focus .cyclo:not(.preview) .focus-metrics{gap:4px}body.ride-focus .cyclo:not(.preview) .focus-actions button{min-height:44px}body.ride-focus .cyclo:not(.preview) .focus-bottom{max-height:50dvh}}
+@media(min-width:701px){body.ride-focus .cyclo:not(.preview) .focus-bottom{right:20px;left:auto;max-width:370px;width:370px}body.ride-focus #map:has(.cyclo:not(.preview)) .mapcontrols{right:410px;bottom:30px}body.ride-focus #map:has(.cyclo:not(.preview)) .mapbottom{bottom:5px}}

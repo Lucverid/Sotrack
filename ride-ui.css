@@ -1,0 +1,129 @@
+/* One consistent layout for the mounted ride screen. */
+#rideMapStage .focus-ui{display:grid;grid-template-rows:auto minmax(40px,1fr) auto;gap:10px;padding:max(10px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));height:100%;box-sizing:border-box;overflow:hidden}
+#rideMapStage .focus-top,#rideMapStage .focus-bottom{position:relative;inset:auto;left:auto;right:auto;top:auto;bottom:auto;width:100%;max-width:580px;margin:0 auto;pointer-events:auto;box-sizing:border-box}
+#rideMapStage .focus-top{grid-row:1}
+#rideMapStage .focus-bottom{grid-row:3;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:12px;max-height:42dvh;overflow:auto;overscroll-behavior:contain;box-shadow:0 8px 30px #0002}
+#rideMapStage .focus-heading{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:6px;margin-bottom:8px;align-items:center}
+#rideMapStage .focus-heading button{min-height:42px;padding:8px 11px;font-size:10px;border-radius:11px;box-shadow:none;background:var(--card);color:var(--ink);border:1px solid var(--border)}
+#rideMapStage .focus-status-group{background:var(--card);border:1px solid var(--border);padding:7px 10px;border-radius:11px;gap:2px;min-width:0}
+#rideMapStage #focusWallClock{font-size:19px;white-space:nowrap;font-weight:800;letter-spacing:-.4px;color:var(--ink)}
+#rideMapStage #focusState{font-size:8px;letter-spacing:1px}
+#rideMapStage .focus-pov{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:4px;margin-bottom:8px}
+#rideMapStage .focus-pov button{min-height:38px;border:0;border-radius:8px;background:transparent;color:var(--muted);font-size:11px;font-weight:700;white-space:nowrap}
+#rideMapStage .focus-pov button.selected{background:#167ade;color:white}
+#rideMapStage .focus-guidance{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-left:4px solid #349eff;border-radius:14px;padding:10px 12px;box-shadow:0 6px 20px #0001}
+#rideMapStage .focus-route-icon{display:block;min-width:36px;font-size:36px;color:#349eff}
+#rideMapStage .focus-guidance>div{display:block;min-width:0;flex:1}
+#rideMapStage .focus-guidance b{font-size:10px;color:var(--muted);font-weight:600;max-width:100%}
+#rideMapStage .focus-guidance p{font-size:17px;margin:3px 0;font-weight:800;color:var(--ink);line-height:1.25}
+#rideMapStage #focusTripStats{font-size:11px;color:var(--ink);margin:4px 0}
+#rideMapStage #focusSignal{font-size:9px;line-height:1.3;color:var(--muted)}
+#rideMapStage .off-route .focus-guidance{border-left-color:#ff8c48}
+#rideMapStage .off-route #focusGuide{color:#c25b1d}
+#rideMapStage .preview .focus-guidance{display:none}
+#rideMapStage .focus-trip-fields{border-radius:14px;padding:2px 12px}
+#rideMapStage .focus-trip-fields button{min-height:43px;font-size:12px}
+#rideMapStage .focus-destination-remaining{display:flex;align-items:baseline;gap:7px;margin:0 0 7px;padding:0 0 7px;border-bottom:1px solid var(--border)}
+#rideMapStage .focus-destination-remaining b{font-size:22px;letter-spacing:-.6px;font-weight:800}
+#rideMapStage .focus-destination-remaining small,#rideMapStage .focus-destination-remaining span{font-size:8px}
+#rideMapStage .focus-sheet-handle{display:none}
+#rideMapStage .focus-metrics{gap:6px;margin:0 0 10px;grid-template-columns:repeat(4,minmax(0,1fr));text-align:center}
+#rideMapStage .cyclo:not(.preview) .focus-metrics{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))}
+#rideMapStage .cyclo:not(.preview) .focus-speed{grid-column:1/-1;border:0;padding:0 0 6px}
+#rideMapStage .cyclo:not(.preview) .focus-speed b{font-size:clamp(48px,8dvh,72px);font-weight:800;font-style:normal;line-height:1;letter-spacing:-2px}
+#rideMapStage .focus-metrics b{font-size:18px;font-weight:750;letter-spacing:-.4px}
+#rideMapStage .focus-metrics small{font-size:8px;line-height:1.3;margin-top:3px}
+#rideMapStage .cyclo:not(.preview) .focus-hr,#rideMapStage .cyclo:not(.preview) .focus-zone{display:block!important}
+#rideMapStage .focus-actions{gap:6px;grid-template-columns:1fr .8fr 1fr}
+#rideMapStage .cyclo:not(.preview) .focus-actions{display:grid!important}
+#rideMapStage .focus-actions button{min-height:44px;font-size:12px;padding:8px;border-radius:10px}
+#rideMapStage .focus-quick{gap:6px;margin:0}
+#rideMapStage .focus-quick button{border-radius:10px;min-height:44px;padding:8px 10px}
+#rideMapStage .focus-quick b{font-size:27px}
+#rideMapStage .cyclo:not(.preview) .focus-quick{display:none}
+#rideMapStage .compact:not(.cyclo) .focus-metrics,#rideMapStage .compact:not(.cyclo) .focus-actions{display:none}
+#rideMapStage .preview .focus-metrics,#rideMapStage .preview .focus-actions{display:none!important}
+#rideMapStage .preview .focus-quick{display:flex}
+#rideMapStage .mapcontrols{display:grid;grid-template-columns:42px 42px;gap:5px;right:10px;bottom:auto;top:calc((var(--ride-top,180px) + 100% - var(--ride-bottom,280px))/2);transform:translateY(-50%);z-index:7}
+#rideMapStage .mapcontrols button{width:42px;height:42px;min-height:42px;border-radius:11px;background:var(--card);color:var(--ink);border:1px solid var(--border);font-size:20px;box-shadow:0 2px 8px #0001}
+#rideMapStage #mapCompass{display:none}
+#rideMapStage .mapbottom{bottom:var(--ride-bottom,280px);padding:0 12px;pointer-events:none;background:transparent}
+#rideMapStage .mapbottom a{font-size:8px;background:#fffffff0;color:#243e5a;padding:2px 5px}
+#rideMapStage .mapempty{top:50%;left:15%;right:25%;font-size:10px;padding:10px}
+@media(min-width:900px){#rideMapStage .focus-ui{max-width:620px;margin-left:auto;margin-right:20px}#rideMapStage .mapcontrols{right:auto;left:16px;top:50%}#rideMapStage .mapbottom{bottom:5px}#rideMapStage .focus-bottom{max-height:45dvh}}
+@media(max-height:600px){#rideMapStage .focus-ui{gap:6px;padding:6px 8px}#rideMapStage .focus-top{max-width:500px}#rideMapStage .focus-heading{margin-bottom:4px}#rideMapStage .focus-pov{margin-bottom:4px}#rideMapStage .focus-guidance{padding:7px 9px}#rideMapStage .focus-guidance p{font-size:14px}#rideMapStage #focusSignal{display:none}#rideMapStage .focus-bottom{max-height:44dvh;padding:8px}#rideMapStage .cyclo:not(.preview) .focus-speed b{font-size:40px}#rideMapStage .focus-metrics{margin-bottom:5px}#rideMapStage .focus-destination-remaining{margin-bottom:4px;padding-bottom:4px}}
+
+#rideMapStage #focusBuildRoute[hidden]{display:none}#rideMapStage #focusBuildRoute{min-height:40px;padding:8px 10px;margin-left:5px;font-size:11px}#rideMapStage .no-route .focus-guidance p{display:block!important}
+/* Compact dashboard map toolbar and accessible map appearance sheet. */
+body:not(.ride-focus) .maptop{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:8px;padding:10px 14px;min-height:54px;box-sizing:border-box}
+body:not(.ride-focus) .maptop .maptitle{margin-right:auto;font-size:10px;white-space:nowrap}
+body:not(.ride-focus) .maptop #mapMode{display:none}
+body:not(.ride-focus) .map-clock-badge{position:static;order:1;background:none;border:0;padding:0 4px;font-size:12px;font-weight:650;letter-spacing:.02em;white-space:nowrap;line-height:1;font-variant-numeric:tabular-nums}
+body:not(.ride-focus) .map-menu-trigger{order:2;border:1px solid var(--border);background:var(--paper);color:var(--ink);border-radius:10px;padding:0 12px;min-height:40px;font-size:12px;font-weight:650;white-space:nowrap}
+body:not(.ride-focus) .maptop>.textbtn{order:3;min-height:40px;padding:0 9px;font-size:11px;white-space:nowrap}
+#mapSettingsMenu{width:440px;max-width:calc(100vw - 28px);max-height:85dvh;box-sizing:border-box;padding:24px;border:1px solid var(--border);border-radius:24px;background:var(--card);color:var(--ink);overflow:auto;box-shadow:0 24px 80px #0005}
+#mapSettingsMenu::backdrop{background:#08132299;backdrop-filter:blur(5px)}
+.map-menu-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}.map-menu-heading small{font-size:9px;letter-spacing:.18em;color:var(--muted)}.map-menu-heading h2{margin:6px 0 0;font-size:24px;letter-spacing:-.04em}.map-menu-close{width:42px;height:42px;flex-shrink:0;border:1px solid var(--border);border-radius:50%;background:var(--paper);color:var(--ink);font-size:25px}
+.map-menu-intro{font-size:12px;line-height:1.6;color:var(--muted);margin:16px 0 20px}.map-style-cards{display:grid;gap:10px}.map-style-cards button{position:relative;display:grid;grid-template-columns:58px 1fr 20px;grid-template-rows:auto auto;gap:4px 14px;text-align:left;align-items:center;padding:12px;border:1px solid var(--border);border-radius:14px;color:var(--ink);background:var(--paper);min-height:80px}.map-style-cards b{font-size:14px;grid-column:2}.map-style-cards small{font-size:11px;color:var(--muted);grid-column:2}.map-style-cards i{grid-column:3;grid-row:1/3;font-style:normal;visibility:hidden;color:#349eff}.map-style-cards button[aria-pressed=true]{border-color:#349eff;box-shadow:inset 0 0 0 1px #349eff;background:color-mix(in srgb,var(--paper) 94%,#349eff)}.map-style-cards button[aria-pressed=true] i{visibility:visible}.style-sample{grid-row:1/3;width:58px;height:54px;border-radius:9px;overflow:hidden;background:linear-gradient(35deg,transparent 40%,#fff 41%,#fff 48%,transparent 49%),linear-gradient(110deg,transparent 43%,#b9d8f2 44%,#b9d8f2 52%,transparent 53%),#dbe7df}.sample-bright{background:linear-gradient(30deg,transparent 41%,#fff 42%,#fff 50%,transparent 51%),linear-gradient(105deg,transparent 38%,#c7dcef 39%,#c7dcef 46%,transparent 47%),#eef2e9}.sample-classic{background:linear-gradient(35deg,transparent 40%,#f6d098 41%,#f6d098 48%,transparent 49%),linear-gradient(110deg,transparent 43%,#fff 44%,#fff 52%,transparent 53%),#e8e4da}
+#mapStyleStatus{font-size:11px;line-height:1.6;color:var(--muted);margin:16px 0}.map-menu-details{border-top:1px solid var(--border);padding-top:16px}.map-menu-details summary{font-size:12px;cursor:pointer;min-height:32px}.map-menu-details .map-freshness{padding:12px 0 0;border:0;gap:10px}.map-menu-details .map-freshness small{font-size:11px;line-height:1.7;flex-basis:100%;min-width:0}.map-menu-details .map-freshness button,.map-menu-details .map-freshness a{font-size:11px;min-height:40px}.map-menu-details .map-freshness a{display:flex;align-items:center}
+@media(max-width:440px){body:not(.ride-focus) .maptop{padding:8px 10px;gap:5px}body:not(.ride-focus) .maptop .maptitle{font-size:8px;letter-spacing:.06em}body:not(.ride-focus) .map-clock-badge{font-size:11px;padding:0 2px}body:not(.ride-focus) .map-menu-trigger{padding:0 9px;font-size:11px}body:not(.ride-focus) .maptop>.textbtn{font-size:10px;padding:0 5px}#mapSettingsMenu{padding:20px;border-radius:22px}}
+@media(max-width:360px){body:not(.ride-focus) .maptop .maptitle{display:none}body:not(.ride-focus) .map-clock-badge{margin-right:auto}}
+#mapSettingsMenu #mapStyleChoice[hidden]{display:none}
+#mapSettingsMenu button:focus-visible,.map-menu-trigger:focus-visible{outline:2px solid #349eff;outline-offset:3px}
+/* Navigation: prioritize the route, with a compact instrument dock. */
+#rideMapStage .focus-heading{grid-template-columns:42px minmax(80px,1fr) auto 42px;gap:6px;position:relative;margin-bottom:8px}
+#rideMapStage #focusExit{order:1;font-size:19px;padding:0;width:42px;height:44px}
+#rideMapStage .focus-status-group{order:2;background:var(--card);min-height:44px;padding:5px 10px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+#rideMapStage #focusWallClock{font-size:13px;font-weight:700;letter-spacing:.02em;line-height:1.2}
+#rideMapStage #focusState{font-size:7px;letter-spacing:.09em;line-height:1.4}
+#rideMapStage #focusLayout{order:4;width:42px;height:44px;padding:0;font-size:21px}
+#rideMapStage #focusLayout[hidden]{display:none}
+#rideMapStage .focus-pov-menu{order:3;position:static;z-index:12}
+#rideMapStage .focus-pov-menu summary{list-style:none;display:flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:0 10px;border:1px solid var(--border);border-radius:11px;background:var(--card);font-size:10px;font-weight:650;cursor:pointer}
+#rideMapStage .focus-pov-menu summary::-webkit-details-marker{display:none}
+#rideMapStage #focusPOVLabel{font-size:16px;color:#349eff}
+#rideMapStage .focus-pov-menu .focus-pov{position:absolute;right:0;top:52px;min-width:260px;margin:0;padding:6px;box-shadow:0 8px 30px #0003;border-radius:14px}
+#rideMapStage .focus-pov-menu .focus-pov button{min-height:44px;font-size:10px}
+#rideMapStage .focus-guidance{padding:10px 12px;border-radius:16px;gap:10px}
+#rideMapStage .focus-guidance p{font-size:19px;letter-spacing:-.03em;margin:3px 0 5px}
+#rideMapStage .focus-route-icon{font-size:32px;min-width:32px}
+#rideMapStage .focus-guidance b{font-size:10px;line-height:1.3;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#rideMapStage #focusTripStats{font-size:10px;line-height:1.4}
+#rideMapStage #focusSignal{font-size:8px;line-height:1.4;display:block;margin-top:4px}
+#rideMapStage .focus-bottom{padding:12px;border-radius:20px;max-height:34dvh;box-shadow:0 5px 24px #0002}
+#rideMapStage .focus-destination-remaining{justify-content:space-between;align-items:center;gap:8px;padding-bottom:8px;margin-bottom:10px;flex-wrap:nowrap}
+#rideMapStage .focus-destination-remaining b{font-size:18px;white-space:nowrap}
+#rideMapStage .focus-destination-remaining small{font-size:8px;letter-spacing:.06em}
+#rideMapStage #focusRemainingStatus{display:none}
+#rideMapStage .cyclo:not(.preview) .focus-metrics{grid-template-columns:minmax(80px,1.2fr) minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto;gap:10px 8px;text-align:left;align-items:center;margin-bottom:12px}
+#rideMapStage .cyclo:not(.preview) .focus-speed{grid-column:1;grid-row:1/3;padding:0 10px 0 0;border-right:1px solid var(--border)}
+#rideMapStage .cyclo:not(.preview) .focus-speed b{font-size:clamp(36px,6vw,46px);line-height:1;letter-spacing:-.05em;color:#65b5ff}
+html[data-theme=day] #rideMapStage .cyclo:not(.preview) .focus-speed b{color:#167ade}
+#rideMapStage .focus-metrics b{font-size:16px;letter-spacing:-.02em;line-height:1.15}
+#rideMapStage .focus-metrics small{font-size:8px;margin-top:4px}
+#rideMapStage .focus-zone small{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rideMapStage .focus-actions{grid-template-columns:1.15fr .8fr 1fr;gap:7px}
+#rideMapStage .focus-actions button{min-height:44px;font-size:11px;border-radius:12px}
+#rideMapStage #map .mapcontrols{top:calc((var(--ride-top,150px) + 100% - var(--ride-bottom,210px))/2);bottom:auto;left:auto;right:10px;width:auto;height:auto;grid-template-columns:40px 40px;grid-auto-rows:40px;gap:6px;align-content:start;transform:translateY(-50%)}
+#rideMapStage #map .mapcontrols button{width:40px;height:40px;min-height:40px;margin:0;padding:0;border-radius:12px;font-size:20px}
+#rideMapStage #map .mapbottom{bottom:var(--ride-bottom,210px)}
+@media(max-width:360px){#rideMapStage .focus-ui{padding-left:8px;padding-right:8px}#rideMapStage .focus-heading{gap:5px}#rideMapStage .focus-pov-menu summary{padding:0 8px}#rideMapStage .focus-guidance p{font-size:17px}#rideMapStage .focus-metrics b{font-size:14px}#rideMapStage .cyclo:not(.preview) .focus-speed b{font-size:34px}}
+@media(max-height:600px){#rideMapStage .focus-bottom{max-height:42dvh;padding:9px}#rideMapStage .focus-guidance{padding:7px 10px}#rideMapStage #focusSignal{display:none}#rideMapStage .focus-guidance p{font-size:16px}#rideMapStage .focus-destination-remaining{margin-bottom:7px;padding-bottom:6px}#rideMapStage .cyclo:not(.preview) .focus-metrics{gap:6px;margin-bottom:8px}}
+#rideMapStage .focus-heading:has(#focusLayout[hidden]){grid-template-columns:42px minmax(80px,1fr) auto}
+#rideMapStage .focus-pov-menu summary:focus-visible,#rideMapStage .focus-heading button:focus-visible{outline:2px solid #349eff;outline-offset:3px}
+/* Screenshot layout: full-width clock bar, centered contents. */
+#rideMapStage .focus-status-group{justify-self:stretch;align-items:center;width:100%;min-width:0;max-width:100%;padding:6px 10px;text-align:center;border-radius:12px;gap:3px}
+#rideMapStage #focusWallClock{font-size:13px;line-height:1.2;font-weight:650;letter-spacing:.015em;font-variant-numeric:tabular-nums}
+#rideMapStage #focusState{font-size:7px;line-height:1.2;letter-spacing:.1em;font-weight:500;color:var(--muted)}
+#rideMapStage .focus-top,#rideMapStage .focus-bottom{min-width:0}
+#rideMapStage .focus-pov-menu .focus-pov{max-width:calc(100vw - 24px);min-width:min(260px,calc(100vw - 24px))}
+#rideMapStage .focus-trip-fields button>span:not(.trip-edit){min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:360px){#rideMapStage .focus-status-group{padding:6px}#rideMapStage #focusWallClock{font-size:12px}}
+@media(orientation:landscape) and (max-height:600px){
+ #rideMapStage .focus-ui{display:block;position:relative;max-width:none;margin:0;padding:8px}
+ #rideMapStage .focus-top{position:absolute;top:max(8px,env(safe-area-inset-top));left:max(8px,env(safe-area-inset-left));width:43%;max-height:calc(100dvh - 24px);overflow:auto;overscroll-behavior:contain}
+ #rideMapStage .focus-bottom{position:absolute;bottom:max(8px,env(safe-area-inset-bottom));right:max(8px,env(safe-area-inset-right));left:auto;top:auto;width:43%;max-height:calc(100dvh - 24px);overflow:auto}
+ #rideMapStage #map .mapcontrols{right:calc(43% + 18px);top:50%;grid-template-columns:40px;grid-auto-rows:40px;gap:5px}
+ #rideMapStage #map .mapbottom{bottom:4px;left:8px;right:auto;max-width:48%}
+}
+@media(min-width:900px) and (min-height:601px){#rideMapStage #map .mapcontrols{left:16px;right:auto;top:50%}#rideMapStage #map .mapbottom{bottom:4px;left:8px;right:auto;max-width:calc(100% - 660px)}}
