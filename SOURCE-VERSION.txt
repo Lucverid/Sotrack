@@ -1,3 +1,2 @@
-Sotrack v2.1.4
-Source commit: 3ff1fb7c34ae0650e5aaeac44ab410b5c9a6d9cc
-GitHub Pages assets use relative paths.
+Sotrack v2.1.8
+Based on GitHub main 475b1377c6e8570fbcd34683c2fca11618c61619 with offline/install fixes.
