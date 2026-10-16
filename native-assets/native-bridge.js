@@ -1,0 +1,36 @@
+(function(){
+ 'use strict';var native=window.SotrackNative;if(!native)return;
+ // Android 4.4 WebView does not expose the modern file chooser callback.
+ if(window.SotrackLegacy&&native.pickLegacyFile){
+  document.addEventListener('click',function(e){var target=e.target;if(!target.closest)return;var label=target.closest('label'),input=target.tagName==='INPUT'?target:label&&label.querySelector('input[type=file]');if(input&&input.type==='file'&&input.id){e.preventDefault();e.stopPropagation();native.pickLegacyFile(input.id);}},true);
+  window.addEventListener('sotrack:legacy-file',function(e){var d=e.detail,input=document.getElementById(d.target);if(d.error){alert(d.error);return;}if(!input)return;var raw=atob(d.base64),bytes=new Uint8Array(raw.length);for(var i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);var file=new Blob([bytes],{type:'application/octet-stream'});file.name=d.name;Object.defineProperty(input,'files',{configurable:true,value:[file]});input.dispatchEvent(new Event('change',{bubbles:true}));});
+ }
+ var online=native.isOnline?native.isOnline():navigator.onLine;
+ window.SotrackAndroidOnline=function(){return online;};
+ window.addEventListener('sotrack:android-network',function(e){var changed=online!==e.detail.online;online=!!e.detail.online;if(changed)window.dispatchEvent(new Event(online?'online':'offline'));});
+ try{Object.defineProperty(navigator,'onLine',{get:function(){return online;},configurable:true});}catch(e){}
+ var offlineRoadRequests={},offlineRoadID=0;
+ window.SotrackOfflineRoads=function(endpoint,query,signal){return new Promise(function(resolve,reject){var id=String(++offlineRoadID),entry={resolve:resolve,reject:reject};function clean(){clearTimeout(entry.timer);if(signal)signal.removeEventListener('abort',abort);delete offlineRoadRequests[id];}function abort(){clean();if(native.cancelOfflineRoads)native.cancelOfflineRoads(id);var e=new Error('Dibatalkan');e.name='AbortError';reject(e);}entry.clean=clean;offlineRoadRequests[id]=entry;if(signal&&signal.aborted){abort();return;}if(signal)signal.addEventListener('abort',abort);entry.timer=setTimeout(function(){clean();if(native.cancelOfflineRoads)native.cancelOfflineRoads(id);reject(new Error('Server peta belum merespons. Coba lagi nanti.'));},50000);native.fetchOfflineRoads(id,endpoint,query);});};
+ window.addEventListener('sotrack:android-offline-roads',function(e){var r=offlineRoadRequests[e.detail.id];if(!r)return;r.clean();if(e.detail.error){var error=new Error(e.detail.error);error.status=e.detail.status;r.reject(error);}else r.resolve(e.detail.data);});
+ var googleRouteRequests={},googleRouteID=0;
+ window.SotrackGoogleRoute=function(url){return new Promise(function(resolve,reject){var id=String(++googleRouteID);googleRouteRequests[id]={resolve:resolve,reject:reject,timer:setTimeout(function(){delete googleRouteRequests[id];reject(new Error('Konversi belum merespons. Coba lagi nanti.'));},85000)};native.convertGoogleRoute(id,url);});};
+ window.addEventListener('sotrack:android-google-route',function(e){var r=googleRouteRequests[e.detail.id];if(!r)return;clearTimeout(r.timer);delete googleRouteRequests[e.detail.id];if(e.detail.error)r.reject(new Error(e.detail.error));else r.resolve({raw:e.detail.raw,url:e.detail.url});});
+ var mapsRequests={},mapsID=0;
+ window.SotrackResolveMaps=function(url){return new Promise(function(resolve,reject){var id=String(++mapsID);mapsRequests[id]={resolve:resolve,reject:reject,timer:setTimeout(function(){delete mapsRequests[id];reject(new Error('Link belum merespons. Coba salin link lengkap dari browser.'));},50000)};native.resolveMapsLink(id,url);});};
+ window.addEventListener('sotrack:android-maps-link',function(e){var r=mapsRequests[e.detail.id];if(!r)return;clearTimeout(r.timer);delete mapsRequests[e.detail.id];if(e.detail.error)r.reject(new Error(e.detail.error));else r.resolve(e.detail.url);});
+ var weatherRequests={},weatherID=0;
+ window.SotrackWeather=function(url){return new Promise(function(resolve,reject){var id=String(++weatherID);weatherRequests[id]={resolve:resolve,reject:reject,timer:setTimeout(function(){delete weatherRequests[id];reject(new Error('Cuaca belum merespons.'));},30000)};native.requestWeather(id,url);});};
+ window.addEventListener('sotrack:android-weather',function(e){var r=weatherRequests[e.detail.id];if(!r)return;clearTimeout(r.timer);delete weatherRequests[e.detail.id];if(e.detail.error)r.reject(new Error(e.detail.error));else r.resolve({ok:true,json:function(){return Promise.resolve(e.detail.data);}});});
+ window.addEventListener('sotrack:android-gps-status',function(e){if(window.sotrack)window.sotrack.gpsDiagnostic=e.detail.message;var s=document.getElementById('gpsStatus');if(s)s.textContent=e.detail.message;var l=document.getElementById('locationText');if(l)l.textContent=e.detail.message;});
+ var watchers={},nextID=1;
+ function start(success,error,options,once){var id=nextID++,entry={success:success,error:error,once:once};watchers[id]=entry;if(once){entry.timeout=setTimeout(function(){delete watchers[id];if(error)error({code:3,message:'Waktu pencarian GPS habis. Coba di ruang terbuka.'});if(!Object.keys(watchers).length)native.stopGPS();},options&&options.timeout||20000);}native.startGPS();return id;}
+ var geo={watchPosition:function(ok,err,opts){return start(ok,err,opts,false);},getCurrentPosition:function(ok,err,opts){start(ok,err,opts,true);},clearWatch:function(id){if(watchers[id])clearTimeout(watchers[id].timeout);delete watchers[id];if(!Object.keys(watchers).length)native.stopGPS();}};
+ window.SotrackAndroidGPS=geo;
+ try{Object.defineProperty(navigator,'geolocation',{value:geo,configurable:true});}catch(e){}
+ window.addEventListener('sotrack:android-gps',function(event){Object.keys(watchers).forEach(function(id){var entry=watchers[id];if(!entry)return;if(entry.once){clearTimeout(entry.timeout);delete watchers[id];}try{entry.success(event.detail);}catch(error){console.error(error);}});if(!Object.keys(watchers).length)native.stopGPS();});
+ window.addEventListener('sotrack:android-gps-error',function(event){Object.keys(watchers).forEach(function(id){var entry=watchers[id];if(entry.error)entry.error({code:2,message:event.detail.message});if(entry.once){clearTimeout(entry.timeout);delete watchers[id];}});});
+ function save(a){var href=a.href;if(!href||href.indexOf('blob:')!==0||!a.download)return false;fetch(href).then(function(r){return r.blob();}).then(function(blob){var reader=new FileReader();reader.onload=function(){native.saveFile(a.download,blob.type,String(reader.result).split(',')[1]);};reader.readAsDataURL(blob);}).catch(function(){alert('File gagal disiapkan. Coba lagi.');});return true;}
+ var click=HTMLAnchorElement.prototype.click;HTMLAnchorElement.prototype.click=function(){if(!save(this))return click.call(this);};
+ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[download]');if(a&&save(a)){e.preventDefault();e.stopImmediatePropagation();}},true);
+ window.addEventListener('sotrack:ready',function(){var pwa=document.getElementById('pwaBar');if(pwa)pwa.hidden=true;var footer=document.getElementById('footerStatus');if(footer)footer.textContent='Android Beta · GPS & HR native · file app offline';});
+})();

@@ -1,0 +1,8 @@
+plugins { id 'com.android.application' }
+android {
+ namespace 'id.agis.sotrack'
+ sourceSets { main { manifest.srcFile 'src/main/AndroidManifest-gradle.xml' } }
+ compileSdk 35
+ defaultConfig { applicationId 'id.agis.sotrack.beta'; minSdk 19; targetSdk 32; versionCode 11; versionName '0.1.10-beta' }
+ compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 }
+}
